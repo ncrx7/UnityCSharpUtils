@@ -1,0 +1,29 @@
+Author: Batuhan Uysal 
+Last Updated Time: 03.05.2025
+
+This is a mini documentation to use the vfx pool-factory subcontainer system.
+----------------------------------------------------------------------------
+
+1- Create a List<VfxWrapper<(your vfx type enum)>> in everywhere in Project. (I recommend a scriptable installer with game settings)
+
+2- Create vfx controller derived by BaseVfxController script. Dont forget to give the vfxtype enum as generic.
+
+3- Create a vfx mono installer and bind the vfx controller.
+
+4- Create a vfx game prefab and there must be game object context, vfx mono installer and vfx controller on it.
+
+5- Attach the vfx prefabs to the game settings prefab (Article 1 List<VfxWrapper<TypeEnum>>)
+
+6- Create a scene installer, and bind all pool for the vfx prefab with loop. Example codes for this article;
+	
+	- private Dictionary<VFXType, VfxPool<VFXType>> _vfxPoolMap = new();
+ 
+	- Container.BindMemoryPool<BaseVfxController<VFXType>, VfxPool<VFXType>>	().WithId(vfx.Type).WithInitialSize(10).FromSubContainerResolve().ByNewContextPrefab(vfx.VfxPrefab).UnderTransformGroup("Vfx Pool");
+
+	- Container.Bind<VfxFactory<VFXType>>().AsSingle();
+
+	- Container.Bind<Dictionary<VFXType, VfxPool<VFXType>>>()
+                .FromInstance(_vfxPoolMap)
+                .AsSingle();
+	
+	- Dont forget to pop up vfx pool map on the start callback like -> _vfxPoolMap[vfx.Type] = Container.ResolveId<VfxPool<VFXType>>(vfx.Type);
