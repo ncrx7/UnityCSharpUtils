@@ -14,7 +14,7 @@ namespace UnityUtils.BaseClasses
         [SerializeField] private float _xScreenUsageRate, _yScreenUsageRate;
         [SerializeField] private Vector3 _manuelOffset = Vector3.zero;
         [SerializeField] private Vector3 _offsetFromCenter = Vector3.zero;
-        [SerializeField] private bool _automaticCellSizeCalculating = false;
+        [SerializeField] private bool _automaticCellSizeScalerByScreen = false;
         [SerializeField] protected bool _debug;
 
         protected int _width;
@@ -31,7 +31,7 @@ namespace UnityUtils.BaseClasses
 
         protected async virtual void Start()
         {
-            if (_automaticCellSizeCalculating)
+            if (_automaticCellSizeScalerByScreen)
             {
                 await CalculateDimensions();
                 _lastOffsetValue = AutomaticOffset;
