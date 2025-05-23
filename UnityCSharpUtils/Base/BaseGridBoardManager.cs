@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityUtils.StaticHelpers;
 
 namespace UnityUtils.BaseClasses
 {
@@ -82,6 +83,12 @@ namespace UnityUtils.BaseClasses
             }
 
             await UniTask.DelayFrame(1);
+        }
+
+        public void AutoScaleGridEntity(SpriteRenderer entitySR)
+        {
+            var scaleFactor = SpriteAutoScaler.CalculateSpriteScaleFactor(entitySR, AutomaticBoardCellSize, 0.65f, 0.65f);
+            entitySR.transform.localScale = Vector2.one * scaleFactor;
         }
 
         public int GetWidth => _width;
