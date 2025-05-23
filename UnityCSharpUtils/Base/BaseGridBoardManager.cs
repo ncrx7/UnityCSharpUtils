@@ -85,9 +85,15 @@ namespace UnityUtils.BaseClasses
             await UniTask.DelayFrame(1);
         }
 
-        public void AutoScaleGridEntity(SpriteRenderer entitySR)
+        public void AutoScaleGridEntityByFit(SpriteRenderer entitySR)
         {
             var scaleFactor = SpriteAutoScaler.CalculateSpriteScaleFactor(entitySR, AutomaticBoardCellSize, 0.65f, 0.65f);
+            entitySR.transform.localScale = Vector2.one * scaleFactor;
+        }
+
+        public void AutoScaleGridEntityByRate(SpriteRenderer entitySR, float cellXSizeRate = 1, float cellYSizeRate = 1)
+        {
+            var scaleFactor = SpriteAutoScaler.CalculateSpriteScaleFactor(entitySR, AutomaticBoardCellSize, cellXSizeRate, cellYSizeRate);
             entitySR.transform.localScale = Vector2.one * scaleFactor;
         }
 
