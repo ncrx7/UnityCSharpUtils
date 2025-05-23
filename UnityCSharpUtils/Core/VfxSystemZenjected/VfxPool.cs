@@ -2,7 +2,6 @@ using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
-using Test4Zenject.VfxSystemExample;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
